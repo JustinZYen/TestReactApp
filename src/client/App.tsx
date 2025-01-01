@@ -3,11 +3,16 @@ import "./App.css";
 import { useEffect, useState } from "react";
 
 import reactLogo from "./assets/react.svg";
+import {socket} from "./socket";
+
+console.log(socket.connected);
 
 function App() {
   const [count, setCount] = useState(0);
-
-  console.log("message");
+  useEffect(()=>{
+    console.log("message");
+    socket.emit("test",Math.random());
+  },[]);
 
   return (
     <div className="App">

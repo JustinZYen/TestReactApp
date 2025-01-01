@@ -1,12 +1,22 @@
 import express from "express";
 import ViteExpress from "vite-express";
+import { createServer } from "node:http";
+import {Server} from "socket.io";
 
 const app = express();
-//ViteExpress.config({ mode: "production" })
+
 
 app.get("/hello", (_, res) => {
   res.send("Hello Vite + React + TypeScript!");
 });
-ViteExpress.listen(app, 3000, () =>
+const server = ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000..."),
 );
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on("test",(val)=>{
+    console.log("test event received with val"+val);
+  });
+});
