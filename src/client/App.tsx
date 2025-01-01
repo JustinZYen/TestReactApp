@@ -12,6 +12,13 @@ function App() {
   useEffect(()=>{
     console.log("message");
     socket.emit("test",Math.random());
+
+    socket.on("connection",()=>{
+      console.log("connection event");
+    })
+    return ()=>{
+      socket.off("connection");
+    }
   },[]);
 
   return (

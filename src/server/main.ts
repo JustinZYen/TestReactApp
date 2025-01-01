@@ -15,7 +15,8 @@ const server = ViteExpress.listen(app, 3000, () =>
 const io = new Server(server);
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('a user connected with id '+socket.id);
+  io.to(socket.id).emit("connection");
   socket.on("test",(val)=>{
     console.log("test event received with val"+val);
   });
